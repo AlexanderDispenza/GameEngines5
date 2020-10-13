@@ -183,9 +183,9 @@ void CoreEngine::Render()
 		std::cout << ("Button has been pressed\n");
 	}
 
-	ImGui::SliderFloat("R", &windowColourR, 0.0f, 100.0f);
-	ImGui::SliderFloat("G", &windowColourG, 0.0f, 100.0f);
-	ImGui::SliderFloat("B", &windowColourB, 0.0f, 100.0f);
+	ImGui::SliderFloat("R", &windowColourR, 0.0f, 1.0f);
+	ImGui::SliderFloat("G", &windowColourG, 0.0f, 1.0f);
+	ImGui::SliderFloat("B", &windowColourB, 0.0f, 1.0f);
 
 	glClearColor(windowColourR, windowColourG, windowColourB, 0.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

@@ -18,6 +18,8 @@ bool GameScene::OnCreate()
 	CoreEngine::GetInstance()->SetCamera(new Camera);
 	CoreEngine::GetInstance()->GetCamera()->SetPosition(glm::vec3(0.0f, 0.0f, 4.0f));
 
+	AudioHandler::GetInstance()->Initialize(CoreEngine::GetInstance()->GetCamera()->GetPosition());
+
 	CollisionHandler::GetInstance()->OnCreate(100.0f);
 
 	CoreEngine::GetInstance()->GetCamera()->AddLightSource(new LightSource(glm::vec3(0.0f, 0.0f, 2.0f),
@@ -35,10 +37,11 @@ bool GameScene::OnCreate()
 	
 	SceneGraph::GetInstance()->AddModel(model2);
 
-	GameObject* apple = new GameObject(model1, glm::vec3(3.0f, -1.0f, 0.0f));
+	GameObject* apple = new GameObject(model1, glm::vec3(-10.0f, -1.0f, 0.0f));
 	apple->SetScale(glm::vec3(0.5f));
 	SceneGraph::GetInstance()->AddGameObject(apple, "apple");
 	
+	apple->AddComponent<AudioSource>("YiesEcho.mp3", true, true, false);
 	//apple->AddComponent<ComponentA>();
 	//apple->GetComponent<ComponentA>();
 	//apple->RemoveComponent<ComponentA>();

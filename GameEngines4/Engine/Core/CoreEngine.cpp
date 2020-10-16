@@ -212,6 +212,8 @@ void CoreEngine::OnDestroy()
 	TextureHandler::GetInstance()->OnDestroy();
 	SceneGraph::GetInstance()->OnDestroy();
 	CollisionHandler::GetInstance()->OnDestroy();
+	MaterialHandler::GetInstance()->OnDestroy();
+	AudioHandler::GetInstance()->OnDestroy();
 
 	delete gameInterface;
 	gameInterface = nullptr;

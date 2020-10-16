@@ -9,6 +9,7 @@
 #include "GameInterface.h"
 #include "Scene.h"
 #include "Debugger.h"
+#include "AudioHandler.h"
 
 #include "../Rendering/3D/GameObject.h"
 #include "../Rendering/SceneGraph.h"

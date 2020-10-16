@@ -30,8 +30,6 @@ public:
 
 	BoundingBox GetBoundingBox();
 
-	
-
 private:
 
 	Model* model;
@@ -78,10 +76,10 @@ public:
 		}
 	}
 
-	template<typename compToAdd>
-	void AddComponent()
+	template<typename compToAdd, typename...Args>
+	void AddComponent(Args&& ... args_)
 	{
-		compToAdd* newComp = new compToAdd();
+		compToAdd* newComp = new compToAdd(std::forward<Args>(args_)...);
 
 		//Check if the new component is a parented to the Component class
 		if (dynamic_cast<Component*>(newComp) == nullptr)

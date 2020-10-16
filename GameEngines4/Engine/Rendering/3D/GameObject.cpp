@@ -24,7 +24,8 @@ GameObject::~GameObject()
 
 	for (auto comp : components)
 	{
-		delete &components;
+		delete comp;
+		comp = nullptr;
 	}
 	components.clear();
 }

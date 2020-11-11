@@ -1,6 +1,5 @@
 #include "GameScene.h"
 
-
 GameScene::GameScene() : Scene()
 {
 
@@ -42,9 +41,9 @@ bool GameScene::OnCreate()
 	SceneGraph::GetInstance()->AddGameObject(apple, "apple");
 	
 	apple->AddComponent<AudioSource>("YiesEcho.mp3", true, true, false);
-	//apple->AddComponent<ComponentA>();
-	//apple->GetComponent<ComponentA>();
-	//apple->RemoveComponent<ComponentA>();
+	particleEmitter = new ParticleEmitter(15, "J0raffe.png", "particleShader");
+
+
 
 	GameObject* dice = new GameObject(model2, glm::vec3(0.0f, -1.0f, 0.0f));
 	SceneGraph::GetInstance()->AddGameObject(dice, "dice");
@@ -56,10 +55,11 @@ void GameScene::Update(const float deltaTime_)
 {
 	//std::cout << deltaTime_ << std::endl;
 	SceneGraph::GetInstance()->Update(deltaTime_);
-
+	particleEmitter->Update(deltaTime_);
 }
 
 void GameScene::Render()
 {
 	SceneGraph::GetInstance()->Render(CoreEngine::GetInstance()->GetCamera());
+	particleEmitter->renderEmitter(CoreEngine::GetInstance()->GetCamera());
 }

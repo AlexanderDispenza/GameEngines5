@@ -30,6 +30,7 @@ void AudioSource::Update(const float deltaTime_)
 
 void AudioSource::PlaySound()
 {
+	std::cout << ("Playing sound\n");
 	channelID = AudioHandler::GetInstance()->PlaySound(soundName, go->GetPosition());
 }
 

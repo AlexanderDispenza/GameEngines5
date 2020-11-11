@@ -4,6 +4,7 @@
 #include "../Core/Component.h"
 #include <iostream>
 
+
 class ComponentA : public Component
 {
 public:

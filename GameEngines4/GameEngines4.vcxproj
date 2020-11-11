@@ -172,6 +172,8 @@
     <ClCompile Include="Engine\Rendering\2D\ImGui_1.6\imgui_impl_sdl_gl3.cpp" />
     <ClCompile Include="Engine\Rendering\3D\GameObject.cpp" />
     <ClCompile Include="Engine\Event\EventListener.cpp" />
+    <ClCompile Include="Engine\Rendering\Particles\Particle.cpp" />
+    <ClCompile Include="Engine\Rendering\Particles\ParticleEmitter.cpp" />
     <ClCompile Include="GAME\Game1.cpp" />
     <ClCompile Include="GAME\Scenes\GameScene.cpp" />
     <ClCompile Include="Engine\FX\LightSource.cpp" />
@@ -215,6 +217,8 @@
     <ClInclude Include="Engine\Rendering\2D\ImGui_1.6\stb_truetype.h" />
     <ClInclude Include="Engine\Rendering\3D\GameObject.h" />
     <ClInclude Include="Engine\Event\EventListener.h" />
+    <ClInclude Include="Engine\Rendering\Particles\Particle.h" />
+    <ClInclude Include="Engine\Rendering\Particles\ParticleEmitter.h" />
     <ClInclude Include="GAME\Game1.h" />
     <ClInclude Include="GAME\Scenes\GameScene.h" />
     <ClInclude Include="GAME\Scenes\StartScene.h" />
@@ -234,6 +238,8 @@
     <None Include="Engine\Shaders\ColourFragmentShader.glsl" />
     <None Include="Engine\Shaders\ColourVertexShader.glsl" />
     <None Include="Engine\Shaders\FragementShader.glsl" />
+    <None Include="Engine\Shaders\FragmentParticleShader.glsl" />
+    <None Include="Engine\Shaders\VertexParticleShader.glsl" />
     <None Include="Engine\Shaders\VertexShader.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

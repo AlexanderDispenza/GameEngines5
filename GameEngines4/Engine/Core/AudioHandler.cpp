@@ -16,8 +16,6 @@ AudioHandler* AudioHandler::GetInstance()
 
 bool AudioHandler::Initialize(glm::vec3 pos_, glm::vec3 vel_, glm::vec3 forwardDir, glm::vec3 upDir_)
 {
-	channelCount = -1;
-
 	FMOD::System_Create(&fmodSystem);
 
 	if (FMOD::System_Create(&fmodSystem) != FMOD_OK)
@@ -28,10 +26,12 @@ bool AudioHandler::Initialize(glm::vec3 pos_, glm::vec3 vel_, glm::vec3 forwardD
 
 	if (fmodSystem->getNumDrivers(driverCount) <= 0)
 	{
-		Debugger::Error("There are ", "AudioHandler.cpp", __LINE__);
+		Debugger::Error("There are no drivers!", "AudioHandler.cpp", __LINE__);
+		return false;
 	}
 
-	fmodSystem->init(2, FMOD_INIT_NORMAL | FMOD_3D | FMOD_INIT_3D_RIGHTHANDED, nullptr);
+	// setting max number of audio sources too 100.
+	fmodSystem->init(100, FMOD_INIT_NORMAL | FMOD_3D | FMOD_INIT_3D_RIGHTHANDED, nullptr);
 
 	fmodSystem->set3DListenerAttributes(0, glmToFMOD(pos_), glmToFMOD(vel_), glmToFMOD(forwardDir), glmToFMOD(upDir_));
 
@@ -66,7 +66,7 @@ void AudioHandler::Update(const float deltaTime_)
 
 AudioHandler::AudioHandler()
 {
-
+	
 }
 
 AudioHandler::~AudioHandler()

@@ -4,6 +4,7 @@
 #include "../../Engine/Core/CoreEngine.h" 
 #include <glm/gtx/string_cast.hpp>
 #include "../../Engine/Components/ComponentA.h"
+#include "../../Engine/Rendering/Particles/ParticleEmitter.h"
 
 class GameScene : public Scene
 {
@@ -16,6 +17,8 @@ public:
 	virtual void Render();
 
 private:
+	ParticleEmitter* particleEmitter;
+
 };
 #endif
 

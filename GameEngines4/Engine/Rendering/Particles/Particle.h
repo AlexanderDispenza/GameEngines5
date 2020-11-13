@@ -17,8 +17,6 @@ struct vertexData
 	glm::vec3 position;
 	
 	glm::vec2 textureCoordinates;
-	
-	glm::vec4 gl_Position;
 };
 
 

@@ -172,7 +172,6 @@
     <ClCompile Include="Engine\Rendering\2D\ImGui_1.6\imgui_impl_sdl_gl3.cpp" />
     <ClCompile Include="Engine\Rendering\3D\GameObject.cpp" />
     <ClCompile Include="Engine\Event\EventListener.cpp" />
-    <ClCompile Include="Engine\Rendering\Particles\Particle.cpp" />
     <ClCompile Include="Engine\Rendering\Particles\ParticleEmitter.cpp" />
     <ClCompile Include="GAME\Game1.cpp" />
     <ClCompile Include="GAME\Scenes\GameScene.cpp" />
@@ -192,6 +191,7 @@
     <ClCompile Include="Engine\Core\OctSpatialPartition.cpp" />
     <ClCompile Include="Engine\Core\OpenGLRenderer.cpp" />
     <ClCompile Include="Engine\Rendering\3D\OpenGLMesh.cpp" />
+    <ClCompile Include="Engine\Rendering\Particles\OpenGLParticle.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Core\AudioSource.h" />
@@ -237,6 +237,7 @@
     <ClInclude Include="Engine\Core\OctSpatialPartition.h" />
     <ClInclude Include="Engine\Core\OpenGLRenderer.h" />
     <ClInclude Include="Engine\Rendering\3D\OpenGLMesh.h" />
+    <ClInclude Include="Engine\Rendering\Particles\OpenGLParticle.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Engine\Shaders\ColourFragmentShader.glsl" />

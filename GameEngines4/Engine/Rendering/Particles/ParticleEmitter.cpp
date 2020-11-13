@@ -2,6 +2,7 @@
 
 ParticleEmitter::ParticleEmitter(int NumberOfParticles_, std::string textureID_, std::string ShaderProgram_)
 {
+	rendType = RenderType::OPENGL;
 	particles.reserve(NumberOfParticles_);
 	NumberOfParticles = NumberOfParticles_;
 	
@@ -43,12 +44,13 @@ void ParticleEmitter::CreateParticles()
 
 	for (float i = 0; i < NumberOfParticles; i++)
 	{
-		Particle* particle = new Particle(shaderID, textureID);
-		randomParticle(particle);
-		particles.push_back(particle);		
+		if (rendType == RenderType::OPENGL)
+		{
+			Particle* particle = new OpenGLParticle(shaderID, textureID);
+			randomParticle(particle);
+			particles.push_back(particle);
+		}
 	}
-	
-	
 }
 
 void ParticleEmitter::randomParticle(Particle *particle)
@@ -63,15 +65,17 @@ void ParticleEmitter::randomParticle(Particle *particle)
 
 void ParticleEmitter::renderEmitter(Camera *camera)
 {
-	if (particles.size() > 0)
+	if (rendType == RenderType::OPENGL)
 	{
-		glUseProgram(shaderID);
-		for (auto P : particles)
+		if (particles.size() > 0)
 		{
-			P->Render(camera);
+			glUseProgram(shaderID);
+			for (auto P : particles)
+			{
+				P->Render(camera);
+			}
 		}
 	}
-
 }
 
 void ParticleEmitter::Update(float deltaTime)

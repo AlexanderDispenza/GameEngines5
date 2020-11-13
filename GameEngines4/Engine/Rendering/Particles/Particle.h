@@ -12,7 +12,6 @@
 #include "../../Graphics/MaterialHandler.h"
 
 
-
 struct vertexData
 {
 	glm::vec3 position;
@@ -20,8 +19,6 @@ struct vertexData
 	glm::vec2 textureCoordinates;
 	
 	glm::vec4 gl_Position;
-	/*float gl_PointSize;
-	float gl_ClipDistance[];*/
 };
 
 
@@ -29,39 +26,21 @@ struct vertexData
 class Particle
 {
 public:
-	Particle(GLuint shaderProgram_, GLuint textureID_);
-	~Particle();
 
-	void Render(Camera* camera_);
+	Particle() {}
+	virtual ~Particle() {}
+
+	virtual void Render(Camera* camera_) = 0;
 
 	float lifeTime;
 	float size;
 	float angle;
-	
-	///
-	//int Nparticle;
-	///
+
 
 	glm::vec3 velocity;
 	glm::vec4 colour;
 	glm::vec3 position;
 	glm::vec3 rotation;
-
-
-private:
-	void GenerateBuffers();
-	GLuint VAO, VBO;
-	GLuint textureID;
-	
-	GLuint shaderProgram;
-	GLuint modelLocation, viewLocation, projectionLocation;
-	GLuint colourLocation, textureLocation;
-	
-	std::vector<vertexData> particles;
-
-	glm::mat4 GetTransform(glm::vec3 position_, float angle_, glm::vec3 rotation_, glm::vec3 scale_)const;
-	
-
 };
 
 #endif // !PARTICLE_H

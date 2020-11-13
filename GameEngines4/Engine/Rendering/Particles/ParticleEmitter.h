@@ -6,9 +6,10 @@
 #include <time.h>
 #include <math.h>
 #include "../../Core/Debugger.h"
-#include "Particle.h"
+#include "OpenGLParticle.h"
 #include "../../Graphics/TextureHandler.h"
 #include "../../Graphics/ShaderHandler.h"
+#include "../../Core/Renderer.h"
 
 class ParticleEmitter
 {	
@@ -35,6 +36,10 @@ public:
 	void Update(float deltaTime);
 
 	void renderEmitter(Camera *camera);
+
+private:
+
+	RenderType rendType;
 };
 
 #endif // !ParticleEmitter

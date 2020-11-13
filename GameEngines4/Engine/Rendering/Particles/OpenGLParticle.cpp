@@ -1,6 +1,6 @@
-#include "Particle.h"
+#include "OpenGLParticle.h"
 
-Particle::Particle(GLuint shaderProgram_, GLuint textureID_)
+OpenGLParticle::OpenGLParticle(GLuint shaderProgram_, GLuint textureID_) : Particle()
 {
 	VAO = 0;
 	VBO = 0;
@@ -11,12 +11,10 @@ Particle::Particle(GLuint shaderProgram_, GLuint textureID_)
 	colourLocation = 0;
 
 	textureLocation = 0;
-	
+
 	textureID = textureID_;
 
 	shaderProgram = shaderProgram_;
-
-	
 
 	lifeTime = 0.0f;
 	size = 0.0f;
@@ -25,12 +23,12 @@ Particle::Particle(GLuint shaderProgram_, GLuint textureID_)
 	position = glm::vec3(0.0f);
 	colour = glm::vec4(0.0f);
 	rotation = glm::vec3(0.0f, 1.0f, 0.0f);
-		
-	
+
+
 	vertexData Plane;
 	Plane.position = glm::vec3(-0.5f, 0.5f, 0.0f);
 	Plane.textureCoordinates = glm::vec2(0.0f, 0.0f);
-	particles.push_back(Plane);	
+	particles.push_back(Plane);
 
 	Plane.position = glm::vec3(0.5f, 0.5f, 0.0f);
 	Plane.textureCoordinates = glm::vec2(1.0f, 0.0f);
@@ -46,12 +44,40 @@ Particle::Particle(GLuint shaderProgram_, GLuint textureID_)
 
 	GenerateBuffers();
 }
-Particle::~Particle()
+
+OpenGLParticle::~OpenGLParticle()
 {
 	glDeleteVertexArrays(1, &VAO);
 	glDeleteBuffers(1, &VBO);
 }
-glm::mat4 Particle::GetTransform(glm::vec3 position_, float angle_, glm::vec3 rotation_, glm::vec3 scale_) const
+
+void OpenGLParticle::GenerateBuffers()
+{
+	glGenVertexArrays(1, &VAO);
+	glGenBuffers(1, &VBO);
+	glBindVertexArray(VAO);
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+
+	glBufferData(GL_ARRAY_BUFFER, particles.size() * sizeof(vertexData), &particles[0], GL_STATIC_DRAW);
+
+
+	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(vertexData), (GLvoid*)offsetof(vertexData, position));
+
+	glEnableVertexAttribArray(1);
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(vertexData), (GLvoid*)offsetof(vertexData, textureCoordinates));
+
+	glBindVertexArray(0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+	modelLocation = glGetUniformLocation(shaderProgram, "model");
+	viewLocation = glGetUniformLocation(shaderProgram, "view");
+	projectionLocation = glGetUniformLocation(shaderProgram, "proj");
+	colourLocation = glGetUniformLocation(shaderProgram, "colour");
+	textureLocation = glGetUniformLocation(shaderProgram, "textureID");
+}
+
+glm::mat4 OpenGLParticle::GetTransform(glm::vec3 position_, float angle_, glm::vec3 rotation_, glm::vec3 scale_) const
 {
 	glm::mat4 model;
 	model = glm::translate(model, position_);
@@ -61,8 +87,7 @@ glm::mat4 Particle::GetTransform(glm::vec3 position_, float angle_, glm::vec3 ro
 	return model;
 }
 
-
-void Particle::Render(Camera* camera_) 
+void OpenGLParticle::Render(Camera* camera_)
 {
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -88,31 +113,4 @@ void Particle::Render(Camera* camera_)
 	glBindVertexArray(0);
 	glBindTexture(GL_TEXTURE_2D, 0);
 	glDisable(GL_BLEND);
-}
-
-void Particle::GenerateBuffers()
-{
-
-	glGenVertexArrays(1, &VAO);
-	glGenBuffers(1, &VBO);
-	glBindVertexArray(VAO);
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	
-	glBufferData(GL_ARRAY_BUFFER, particles.size() * sizeof(vertexData), &particles[0], GL_STATIC_DRAW);
-
-
-	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(vertexData), (GLvoid*)offsetof(vertexData, position));
-
-	glEnableVertexAttribArray(1);
-	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(vertexData), (GLvoid*)offsetof(vertexData, textureCoordinates));
-
-	glBindVertexArray(0);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-	modelLocation = glGetUniformLocation(shaderProgram, "model");
-	viewLocation = glGetUniformLocation(shaderProgram, "view");
-	projectionLocation = glGetUniformLocation(shaderProgram, "proj");
-	colourLocation = glGetUniformLocation(shaderProgram, "colour");
-	textureLocation = glGetUniformLocation(shaderProgram, "textureID");
 }

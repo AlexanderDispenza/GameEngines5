@@ -10,8 +10,6 @@
 #include "../../Graphics/TextureHandler.h"
 #include "../../Graphics/ShaderHandler.h"
 
-
-
 class ParticleEmitter
 {	
 public:
@@ -29,7 +27,6 @@ public:
 	glm::vec3 position;
 	
 	time_t timer; 
-
 	
 	void CreateParticles();
 
@@ -39,8 +36,5 @@ public:
 
 	void renderEmitter(Camera *camera);
 };
-
-
-
 
 #endif // !ParticleEmitter

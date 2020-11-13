@@ -10,6 +10,7 @@
 #include "Scene.h"
 #include "Debugger.h"
 #include "AudioHandler.h"
+#include "Renderer.h"
 
 #include "../Rendering/3D/GameObject.h"
 #include "../Rendering/SceneGraph.h"
@@ -23,6 +24,7 @@
 #include "../Rendering/2D/ImGui_1.6/imgui.h"
 #include "../Rendering/2D/ImGui_1.6/imgui_impl_sdl_gl3.h"
 
+#include "OpenGLRenderer.h"
 
 class CoreEngine
 {
@@ -41,7 +43,7 @@ public:
 
 	static CoreEngine* GetInstance();
 
-	void SetGameInterface(GameInterface* gameInterface_);
+	void SetGameInterface(GameInterface* gameInterface_, RenderType rendType_ = RenderType::OPENGL);
 
 	int GetCurrentScene();
 	void SetCurrentScene(int sceneNum_);
@@ -58,7 +60,13 @@ public:
 	void NotifyOfMouseMove(glm::vec2 mouse_);
 	void NotifyOfMouseScroll(int direction_);
 
+	RenderType GetRendererType();
+	void SetRendererType(RenderType rendType_);
 
+	Renderer* GetRenderer();
+	void SetRenderer(Renderer* renderer_);
+
+	Window* GetWindow() const;
 
 private:
 	CoreEngine();
@@ -86,6 +94,10 @@ private:
 	float windowColourR = 0;
 	float windowColourG = 0;
 	float windowColourB = 0;
+
+	
+	RenderType rendType;
+	Renderer* renderer;
 };
 #endif
 

@@ -5,6 +5,7 @@ std::unique_ptr<CoreEngine> CoreEngine::engineInstance = nullptr;
 
 CoreEngine::CoreEngine()
 {
+	rendType = RenderType::OPENGL;
 	window = nullptr;
 	isRunning = false;
 	fps = 144;
@@ -25,17 +26,28 @@ bool CoreEngine::OnCreate(std::string name_, int width_, int height_)
 	Debugger::DebugInit();
 	Debugger::SetSeverity(MessageType::TYPE_INFO);
 
-	window = new Window();
-	if (!window->OnCreate(name_, width_, height_))
+	if (rendType == RenderType::OPENGL)
 	{
-		Debugger::FatalError("Window failed to initialize ", "CoreEngine.cpp ", __LINE__);
-		isRunning = false;
+		renderer = new OpenGLRenderer();
+
+		window = new Window();
+		if (!window->OnCreate(name_, width_, height_, renderer))
+		{
+			Debugger::FatalError("Window failed to initialize ", "CoreEngine.cpp ", __LINE__);
+			isRunning = false;
+		}
+
+	}
+	else if (rendType == RenderType::VULKAN)
+	{
+		//vulkan stuff here...
 	}
 
 	SDL_WarpMouseInWindow(window->GetWindow(), window->GetWidth()/2, window->GetHeight()/2);
 
 	MouseEventListener::RegisterEngineObject(this);
-
+	
+	/*
 	ShaderHandler::GetInstance()->CreateProgram("colourShader",
 		"Engine/Shaders/ColourVertexShader.glsl",
 		"Engine/Shaders/ColourFragmentShader.glsl");
@@ -47,7 +59,7 @@ bool CoreEngine::OnCreate(std::string name_, int width_, int height_)
 	ShaderHandler::GetInstance()->CreateProgram("particleShader",
 		"Engine/Shaders/VertexParticleShader.glsl",
 		"Engine/Shaders/FragmentParticleShader.glsl");
-
+		*/
 
 	if (gameInterface) 
 	{
@@ -55,7 +67,6 @@ bool CoreEngine::OnCreate(std::string name_, int width_, int height_)
 		{
 			Debugger::FatalError("GameInterface failed to initialize! ", "CoreEngine.cpp ", __LINE__);
 		}
-		
 	}
 
 	timer.Start();
@@ -104,9 +115,11 @@ CoreEngine* CoreEngine::GetInstance()
 	return engineInstance.get();
 }
 
-void CoreEngine::SetGameInterface(GameInterface* gameInterface_)
+void CoreEngine::SetGameInterface(GameInterface* gameInterface_, RenderType rendType_)
 {
+	rendType = rendType_;
 	gameInterface = gameInterface_;
+
 }
 
 int CoreEngine::GetCurrentScene()
@@ -162,8 +175,32 @@ void CoreEngine::NotifyOfMouseScroll(int direction_)
 	if (camera) 
 	{
 		camera->ProcessMouseZoom(direction_);
-
 	}
+}
+
+RenderType CoreEngine::GetRendererType()
+{
+	return rendType;
+}
+
+void CoreEngine::SetRendererType(RenderType rendType_)
+{
+	rendType = rendType_;
+}
+
+Renderer* CoreEngine::GetRenderer()
+{
+	return renderer;
+}
+
+void CoreEngine::SetRenderer(Renderer* renderer_)
+{
+	renderer = renderer_;
+}
+
+Window* CoreEngine::GetWindow() const
+{
+	return window;
 }
 
 void CoreEngine::Update(const float deltaTime_)
@@ -176,36 +213,39 @@ void CoreEngine::Update(const float deltaTime_)
 
 void CoreEngine::Render()
 {
-	
+	/*
 	glClearColor(windowColourR, windowColourG, windowColourB, 0.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	*/
 	//Rend Game
 	
-	ImGui::Begin("Test GUI");
+	//ImGui::Begin("Test GUI");
 
-	if (ImGui::Button("Button Test"))
-	{
-		std::cout << ("Button has been pressed\n");
-	}
+	//if (ImGui::Button("Button Test"))
+	//{
+	//	std::cout << ("Button has been pressed\n");
+	//}
 
-	ImGui::SliderFloat("R", &windowColourR, 0.0f, 1.0f);
-	ImGui::SliderFloat("G", &windowColourG, 0.0f, 1.0f);
-	ImGui::SliderFloat("B", &windowColourB, 0.0f, 1.0f);
+	//ImGui::SliderFloat("R", &windowColourR, 0.0f, 1.0f);
+	//ImGui::SliderFloat("G", &windowColourG, 0.0f, 1.0f);
+	//ImGui::SliderFloat("B", &windowColourB, 0.0f, 1.0f);
 
+	/*
 	glClearColor(windowColourR, windowColourG, windowColourB, 0.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	*/
 
-	ImGui::End();
+	//ImGui::End();
 	
 	if (gameInterface) 
 	{
 		gameInterface->Render();
 	}
 
-
-	ImGui::Render();
-	ImGui_ImplSdlGL3_RenderDrawData(ImGui::GetDrawData());
-	SDL_GL_SwapWindow(window->GetWindow());
+	//ImGui::Render();
+	//ImGui_ImplSdlGL3_RenderDrawData(ImGui::GetDrawData());
+	
+	//SDL_GL_SwapWindow(window->GetWindow());
 }
 
 void CoreEngine::OnDestroy()

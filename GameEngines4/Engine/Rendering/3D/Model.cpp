@@ -3,6 +3,7 @@
 Model::Model(const std::string& objFilePath, const std::string& mtlFilePath, GLuint shaderProgram_) : subMeshes(std::vector<Mesh*>()), 
 modelInstances(std::vector<glm::mat4>())
 {
+	rendType = RenderType::OPENGL;
 	modelInstances.reserve(5);
 	subMeshes.reserve(10);
 	shaderProgram = shaderProgram_;
@@ -10,6 +11,7 @@ modelInstances(std::vector<glm::mat4>())
 	obj = new LoadObjModel();
 	obj->LoadModel(objFilePath, mtlFilePath);
 	this->LoadModel();
+	
 }
 
 Model::~Model()
@@ -84,7 +86,8 @@ void Model::LoadModel()
 {
 	for (int i = 0; i < obj->GetSubMeshes().size(); i++) 
 	{
-		subMeshes.push_back(new Mesh(obj->GetSubMeshes()[i], shaderProgram));
+		if(rendType == RenderType::OPENGL)
+		subMeshes.push_back(new OpenGLMesh(obj->GetSubMeshes()[i], shaderProgram));
 	}
 
 	box = obj->GetBoundingBox();

@@ -1,11 +1,12 @@
 #ifndef MODEL_H
 #define MODEL_H
 
-#include "Mesh.h"
 #include <glm/gtc/matrix_transform.hpp>
 #include <string>
 #include "../3D/LoadObjModel.h"
 #include "../../Math/BoundingBox.h"
+#include "OpenGLMesh.h"
+#include "../../Core/Renderer.h"
 
 class Model
 {
@@ -40,8 +41,8 @@ private:
 		float angle_, glm::vec3 rotation_, glm::vec3 scale_) const;
 
 	void LoadModel();
-
-
+	
+	RenderType rendType;
 };
 #endif
 

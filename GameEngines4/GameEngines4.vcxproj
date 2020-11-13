@@ -182,7 +182,6 @@
     <ClCompile Include="Engine\Core\Window.cpp" />
     <ClCompile Include="Engine\Core\Timer.cpp" />
     <ClCompile Include="GAME\Scenes\StartScene.cpp" />
-    <ClCompile Include="Engine\Rendering\3D\Mesh.cpp" />
     <ClCompile Include="Engine\Rendering\3D\Model.cpp" />
     <ClCompile Include="Engine\Graphics\ShaderHandler.cpp" />
     <ClCompile Include="Engine\Graphics\TextureHandler.cpp" />
@@ -191,12 +190,15 @@
     <ClCompile Include="Engine\Graphics\MaterialHandler.cpp" />
     <ClCompile Include="Engine\FX\MaterialLoader.cpp" />
     <ClCompile Include="Engine\Core\OctSpatialPartition.cpp" />
+    <ClCompile Include="Engine\Core\OpenGLRenderer.cpp" />
+    <ClCompile Include="Engine\Rendering\3D\OpenGLMesh.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Core\AudioSource.h" />
     <ClInclude Include="Engine\Core\AudioHandler.h" />
     <ClInclude Include="Engine\Components\ComponentA.h" />
     <ClInclude Include="Engine\Core\Component.h" />
+    <ClInclude Include="Engine\Core\Renderer.h" />
     <ClInclude Include="Engine\Math\CollisionHandler.h" />
     <ClInclude Include="Engine\Math\CollisionDetection.h" />
     <ClInclude Include="Engine\Camera\Camera.h" />
@@ -233,6 +235,8 @@
     <ClInclude Include="Engine\Graphics\MaterialHandler.h" />
     <ClInclude Include="Engine\FX\MaterialLoader.h" />
     <ClInclude Include="Engine\Core\OctSpatialPartition.h" />
+    <ClInclude Include="Engine\Core\OpenGLRenderer.h" />
+    <ClInclude Include="Engine\Rendering\3D\OpenGLMesh.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Engine\Shaders\ColourFragmentShader.glsl" />

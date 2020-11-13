@@ -23,14 +23,16 @@ struct SubMesh
 	Material material;
 };
 
-class Mesh
+class MeshParent 
 {
 public:
 
-	Mesh() {}
-	virtual ~Mesh() {}
+	MeshParent() {}
+	virtual ~MeshParent() {}
 
 	virtual void Render(Camera* camera_, std::vector<glm::mat4> instances_) = 0;
+
+	virtual void OnDestroy() = 0;
 };
 
 #endif

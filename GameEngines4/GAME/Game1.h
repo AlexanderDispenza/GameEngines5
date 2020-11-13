@@ -22,5 +22,10 @@ private:
 	Scene* currentScene;
 	void BuildScene();
 
+	float windowColourR = 0;
+	float windowColourG = 0;
+	float windowColourB = 0;
+
+
 };
 #endif

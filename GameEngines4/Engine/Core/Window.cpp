@@ -14,7 +14,7 @@ Window::~Window()
 	OnDestroy();
 }
 
-bool Window::OnCreate(std::string name_, int width_, int height_)
+bool Window::OnCreate(std::string name_, int width_, int height_, Renderer* renderer_)
 {
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
 	{
@@ -24,6 +24,15 @@ bool Window::OnCreate(std::string name_, int width_, int height_)
 	width = width_;
 	height = height_;
 
+	window = renderer_->CreateWindow(name_, width, height);
+
+	if (window == nullptr)
+	{
+		Debugger::FatalError("Failed to CreateWindow ", "Window.cpp", __LINE__);
+		return false;
+	}
+
+	/*
 	SetPreAttributes();
 
 	window = SDL_CreateWindow(name_.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, SDL_WINDOW_OPENGL);
@@ -48,6 +57,7 @@ bool Window::OnCreate(std::string name_, int width_, int height_)
 	glEnable(GL_DEPTH_TEST);
 
 	glViewport(0, 0, width, height);
+	*/
 
 	// Converting const char to string by storing in new string 
 	const GLubyte* GPUInfo = glGetString(GL_VENDOR);
